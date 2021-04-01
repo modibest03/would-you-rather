@@ -9,8 +9,6 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider as ReduxProvider } from "react-redux";
 import configureStore from "./redux/configureStore";
 
-const store = configureStore();
-
 const customiseTheme = {
   colors: {
     primary: "#707070",
@@ -46,6 +44,7 @@ const customiseTheme = {
   },
 };
 
+const store = configureStore();
 const theme = extendTheme(customiseTheme);
 
 ReactDOM.render(

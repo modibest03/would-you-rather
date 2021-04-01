@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
-// import courses from "./courseReducer";
-// import user from "./userReducer";
+import authedUserReducer from "./authedUserReducer";
+import usersReducer from "./usersReducer";
+import questionsReducer from "./questionsReducer";
 
 const rootReducer = combineReducers({
-  //   courses,
-  //   user,
+  user: authedUserReducer,
+  users: usersReducer,
+  questions: questionsReducer,
 });
 
 export default rootReducer;

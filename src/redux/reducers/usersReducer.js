@@ -1,31 +1,31 @@
 import {
-  FETCH_QUESTIONS_REQUEST,
-  FETCH_QUESTIONS_SUCCESS,
-  FETCH_QUESTIONS_FAILURE,
+  FETCH_USERS_REQUEST,
+  FETCH_USERS_SUCCESS,
+  FETCH_USERS_FAILURE,
 } from "../actions/actionTypes";
 
 const initialState = {
   loading: false,
-  questions: {},
+  users: {},
   error: "",
 };
 
-const questionsReducer = (state = initialState, action) => {
+const usersReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_QUESTIONS_REQUEST:
+    case FETCH_USERS_REQUEST:
       return {
         ...state,
         loading: true,
       };
 
-    case FETCH_QUESTIONS_SUCCESS:
+    case FETCH_USERS_SUCCESS:
       return {
         ...state,
         loading: false,
-        questions: action.questions,
+        users: action.users,
       };
 
-    case FETCH_QUESTIONS_FAILURE:
+    case FETCH_USERS_FAILURE:
       return {
         ...state,
         loading: false,
@@ -37,4 +37,4 @@ const questionsReducer = (state = initialState, action) => {
   }
 };
 
-export default questionsReducer;
+export default usersReducer;
