@@ -11,15 +11,11 @@ import configureStore from "./redux/configureStore";
 
 const customiseTheme = {
   colors: {
-    primary: "#707070",
+    primary: "#302b63",
     secondary: "#fff",
-    tertiary: "#59407E",
+    tertiary: "#efefef",
     grey: {
-      10: "#7AC8FF0F",
-      20: "#F7F7F7",
-      30: "#00000014",
-      40: "#0000001A",
-      50: "#00000078",
+      10: "#dcdcdc",
     },
   },
   styles: {
@@ -38,7 +34,13 @@ const customiseTheme = {
       body: {
         fonts: "Poppins sans-serif",
         fontWeight: 400,
-        color: "primary",
+        color: "#555353",
+      },
+      variants: {
+        "progress-customize": {
+          bgColor: "#302b63",
+          height: "3rem",
+        },
       },
     },
   },
