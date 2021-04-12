@@ -14,6 +14,6 @@ Yarn is a package manager built by Facebook Team and seems to be faster than npm
 Installing
 To download the project follow the instructions bellow:
 
-git clone [https://github.com/modibest03/myreads.git] cd myreads Then install dependencies and run:
+git clone [git@github.com:modibest03/would-you-rather.git] cd myreads Then install dependencies and run:
 
 yarn install yarn start
