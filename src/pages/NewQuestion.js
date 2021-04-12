@@ -22,7 +22,7 @@ const NewQuestion = () => {
         </Heading>
       </Box>
       <Box>
-        <AddForm />
+        <AddForm option />
       </Box>
     </Box>
   );

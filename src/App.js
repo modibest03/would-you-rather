@@ -29,35 +29,35 @@ function App() {
       backgroundColor="tertiary"
       h="100vh"
       position="relative"
-      // overflow="hidden"
+      overflow="hidden"
     >
       <Switch>
         <Route exact path="/">
-          <Navbar />
+          <Navbar authenticated={authenticated} />
           {authenticated ? <Home /> : <Redirect to="/login" />}
           <Profile authenticated={authenticated} />
         </Route>
         <Route exact path="/add">
-          <Navbar />
+          <Navbar authenticated={authenticated} />
           {authenticated ? <NewQuestion /> : <Redirect to="/login" />}
           <Profile authenticated={authenticated} />
         </Route>
         <Route exact path="/leaderboard">
-          <Navbar />
+          <Navbar authenticated={authenticated} />
           {authenticated ? <Leaderboard /> : <Redirect to="/login" />}
           <Profile authenticated={authenticated} />
         </Route>
         <Route exact path="/question/:question_id">
-          <Navbar />
+          <Navbar authenticated={authenticated} />
           {authenticated ? <Question /> : <Redirect to="/login" />}
           <Profile authenticated={authenticated} />
         </Route>
         <Route exact path="/login">
-          <Navbar />
+          <Navbar authenticated={authenticated} />
           <Login />
         </Route>
         <Route exact>
-          <Navbar />
+          <Navbar authenticated={authenticated} />
           <NotFoundPage />
         </Route>
       </Switch>

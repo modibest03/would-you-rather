@@ -1,10 +1,15 @@
 import { Avatar } from "@chakra-ui/avatar";
 import { Box, Flex, Text } from "@chakra-ui/layout";
+import { useSelector } from "react-redux";
 import React from "react";
 
-const LeaderboardCard = () => {
+const LeaderboardCard = ({ id }) => {
+  const user = useSelector((state) => state.users.users[id]);
+  const numQuestions = user.questions.length;
+  const numAnswered = Object.keys(user.answers).length;
+
   return (
-    <Box bg="secondary" p="2rem 3rem" boxShadow="lg">
+    <Box bg="secondary" p="2rem 3rem" boxShadow="lg" mt="2rem">
       <Flex
         justifyContent="space-between"
         alignItems="center"
@@ -14,17 +19,12 @@ const LeaderboardCard = () => {
         <Box>
           <Text color="primary" fontWeight="200" fontSize="2rem">
             <Text as="span" fontWeight="600">
-              Kate
+              {user.name} asks:
             </Text>{" "}
-            James asks:
           </Text>
         </Box>
         <Box>
-          <Avatar
-            name="kate"
-            src="https://bit.ly/tioluwani-kolawole"
-            size="xl"
-          />
+          <Avatar name="kate" src={user.avatarURL} size="xl" />
         </Box>
       </Flex>
       <Flex mt="2rem" justifyContent="space-between" paddingBottom="4rem">
@@ -37,11 +37,11 @@ const LeaderboardCard = () => {
         >
           <Flex justifyContent="space-between">
             <Text>Answered questions</Text>
-            <Text>7</Text>
+            <Text>{numAnswered}</Text>
           </Flex>
           <Flex justifyContent="space-between">
-            <Text>Unanswered questions</Text>
-            <Text>3</Text>
+            <Text>Created questions</Text>
+            <Text>{numQuestions}</Text>
           </Flex>
         </Flex>
         <Box border="1px solid #302b63">
@@ -51,7 +51,7 @@ const LeaderboardCard = () => {
             </Text>
           </Box>
           <Box p="1rem" textAlign="center">
-            <Text fontSize="2rem">10</Text>
+            <Text fontSize="2rem">{numQuestions + numAnswered}</Text>
           </Box>
         </Box>
       </Flex>

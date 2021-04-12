@@ -6,7 +6,7 @@ import { FiLogOut } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { clearUser } from "../redux/actions/authedUserAction";
 
-const Navbar = () => {
+const Navbar = ({ authenticated }) => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -127,17 +127,19 @@ const Navbar = () => {
           </Link>
         </ListItem>
       </UnorderedList>
-      <Box
-        position="absolute"
-        right="5%"
-        top="28%"
-        onClick={handleClick}
-        _hover={{
-          cursor: "pointer",
-        }}
-      >
-        <Icon as={FiLogOut} fontSize="4rem" color="red" />
-      </Box>
+      {authenticated && (
+        <Box
+          position="absolute"
+          right="5%"
+          top="28%"
+          onClick={handleClick}
+          _hover={{
+            cursor: "pointer",
+          }}
+        >
+          <Icon as={FiLogOut} fontSize="4rem" color="red" />
+        </Box>
+      )}
     </Flex>
   );
 };

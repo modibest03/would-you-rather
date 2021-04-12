@@ -3,6 +3,7 @@ import {
   FETCH_USERS_SUCCESS,
   FETCH_USERS_FAILURE,
   SAVE_QUESTION_ANSWER_USER,
+  SAVE_QUESTION,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -24,6 +25,21 @@ const usersReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         users: action.users,
+      };
+
+    case SAVE_QUESTION:
+      const { question } = action;
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          [question.author]: {
+            ...state.users[question.author],
+            questions: state.users[question.author].questions.concat([
+              question.id,
+            ]),
+          },
+        },
       };
 
     case SAVE_QUESTION_ANSWER_USER:

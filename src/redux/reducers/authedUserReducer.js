@@ -5,14 +5,12 @@ import {
 } from "../actions/actionTypes";
 
 export default function authedUser(state = null, action) {
-  console.log(state);
   switch (action.type) {
     case FETCH_AUTHED_USER:
       return action.id;
 
     case SAVE_QUESTION_ANSWER_USER:
       const { qid, answer } = action;
-      console.log(state);
       return {
         ...state,
         answers: {

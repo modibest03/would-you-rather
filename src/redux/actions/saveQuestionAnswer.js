@@ -4,7 +4,15 @@ import {
   SAVE_QUESTION_ANSWER_REQUEST,
   SAVE_QUESTION_ANSWER_QUESTION,
   SAVE_QUESTION_ANSWER_USER,
+  SAVE_QUESTION,
 } from "./actionTypes";
+
+export const addQuestion = (question) => {
+  return {
+    type: SAVE_QUESTION,
+    question,
+  };
+};
 
 export const saveQuestionAnswerRequest = () => {
   return {
@@ -65,6 +73,16 @@ export const saveQuestionAnswerUse = (authUser, id, value) => {
             answer: value,
           })
         );
+      });
+  };
+};
+
+export const saveQuestion = (optionOneText, optionTwoText, author) => {
+  return (dispatch) => {
+    api
+      ._saveQuestion({ optionOneText, optionTwoText, author })
+      .then((question) => {
+        dispatch(addQuestion(question));
       });
   };
 };

@@ -26,12 +26,10 @@ const Home = () => {
     );
   }, [authedUser, questions, authedUser.answers]);
 
-  console.log(questions);
-  console.log(authedUser);
   return (
-    <Box width="25%" margin="5rem auto">
+    <Box width="25%" height="80%" overflowY="scroll" margin="5rem auto">
       <Tabs variant="unstyled" isFitted>
-        <TabList>
+        <TabList position="sticky" top="0" zIndex="10">
           <Tab
             _selected={{ color: "white", bg: "primary" }}
             fontSize="1.5rem"

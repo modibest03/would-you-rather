@@ -8,19 +8,21 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authedUser } from "../redux/actions/authedUserAction";
+import { saveQuestion } from "../redux/actions/saveQuestionAnswer";
 import * as Yup from "yup";
 
 const AddForm = ({ signin, option }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const users = useSelector((state) => state.users);
+  const authUser = useSelector((state) => state.user);
   const [usersId, setUsersId] = useState([]);
   const [authenticated, setAuthenticated] = useState("");
 
   useEffect(() => {
     if (users) {
       const usersId = [];
-      for (let [key, value] of Object.entries(users.users)) {
+      for (let value of Object.values(users.users)) {
         usersId.push(value.id);
       }
       setUsersId(usersId);
@@ -29,7 +31,7 @@ const AddForm = ({ signin, option }) => {
   }, [users]);
 
   const handleClick = () => {
-    for (let [key, value] of Object.entries(users.users)) {
+    for (let value of Object.values(users.users)) {
       if (authenticated === value.id) {
         const { id, name, avatarURL, answers, questions } = value;
         const info = {
@@ -46,9 +48,6 @@ const AddForm = ({ signin, option }) => {
     }
   };
 
-  // console.log(usersId);
-  // console.log(authenticated);
-
   return (
     <Box mt="2rem">
       {option && (
@@ -63,10 +62,9 @@ const AddForm = ({ signin, option }) => {
               .required("Required"),
           })}
           onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
+            dispatch(saveQuestion(values.option1, values.option2, authUser.id));
+            setSubmitting(false);
+            history.push("/");
           }}
         >
           <Form>

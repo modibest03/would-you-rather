@@ -10,7 +10,6 @@ import {
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import {
   saveQuestionAnswerQues,
@@ -20,14 +19,8 @@ import {
 const UnansweredPoll = ({ question, user }) => {
   const authedUser = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const history = useHistory();
   const [value, setValue] = useState("optionOne");
   let { question_id } = useParams();
-
-  // console.log(question.id === question_id);
-  console.log(value);
-  console.log(question_id);
-  console.log(authedUser.id);
 
   const handleSubmit = () => {
     dispatch(saveQuestionAnswerQues(authedUser.id, question_id, value));

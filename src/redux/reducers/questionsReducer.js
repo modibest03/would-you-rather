@@ -3,6 +3,7 @@ import {
   FETCH_QUESTIONS_SUCCESS,
   FETCH_QUESTIONS_FAILURE,
   SAVE_QUESTION_ANSWER_QUESTION,
+  SAVE_QUESTION,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -24,6 +25,13 @@ const questionsReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         questions: action.questions,
+      };
+
+    case SAVE_QUESTION:
+      const { question } = action;
+      return {
+        ...state,
+        questions: { ...state.questions, [action.question.id]: question },
       };
 
     case SAVE_QUESTION_ANSWER_QUESTION:
