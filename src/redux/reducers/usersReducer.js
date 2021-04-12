@@ -2,6 +2,7 @@ import {
   FETCH_USERS_REQUEST,
   FETCH_USERS_SUCCESS,
   FETCH_USERS_FAILURE,
+  SAVE_QUESTION_ANSWER_USER,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -23,6 +24,22 @@ const usersReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         users: action.users,
+      };
+
+    case SAVE_QUESTION_ANSWER_USER:
+      const { authedUser, qid, answer } = action;
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          [authedUser]: {
+            ...state.users[authedUser],
+            answers: {
+              ...state.users[authedUser].answers,
+              [qid]: answer,
+            },
+          },
+        },
       };
 
     case FETCH_USERS_FAILURE:

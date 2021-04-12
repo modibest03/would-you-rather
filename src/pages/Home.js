@@ -1,10 +1,33 @@
 import { Box, Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import React from "react";
-import AnsweredPoll from "../components/AnsweredPoll";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Questions from "../components/Questions";
-import UnansweredPoll from "../components/UnansweredPoll";
 
 const Home = () => {
+  const questions = useSelector((state) => state.questions);
+  const authedUser = useSelector((state) => state.user);
+  const [answeredQuestions, setansweredQuestions] = useState([]);
+  const [unansweredQuestions, setunansweredQuestions] = useState([]);
+
+  useEffect(() => {
+    setansweredQuestions(
+      Object.keys(authedUser.answers).sort(
+        (a, b) =>
+          questions.questions[b].timestamp - questions.questions[a].timestamp
+      )
+    );
+    setunansweredQuestions(
+      Object.keys(questions.questions)
+        .filter((qid) => !Object.keys(authedUser.answers).includes(qid))
+        .sort(
+          (a, b) =>
+            questions.questions[b].timestamp - questions.questions[a].timestamp
+        )
+    );
+  }, [authedUser, questions, authedUser.answers]);
+
+  console.log(questions);
+  console.log(authedUser);
   return (
     <Box width="25%" margin="5rem auto">
       <Tabs variant="unstyled" isFitted>
@@ -33,14 +56,16 @@ const Home = () => {
             Answered Questions
           </Tab>
         </TabList>
-        <TabPanels>
+        <TabPanels overflowY="auto">
           <TabPanel>
-            {/* <Questions /> */}
-            <AnsweredPoll />
+            {unansweredQuestions.map((qid) => (
+              <Questions key={qid} id={qid} questions={questions} />
+            ))}
           </TabPanel>
           <TabPanel>
-            {/* <Questions /> */}
-            <UnansweredPoll />
+            {answeredQuestions.map((qid) => (
+              <Questions key={qid} id={qid} questions={questions} />
+            ))}
           </TabPanel>
         </TabPanels>
       </Tabs>

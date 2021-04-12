@@ -4,7 +4,15 @@ import React from "react";
 
 import "./AnsweredPoll.css";
 
-const AnsweredPoll = () => {
+const AnsweredPoll = ({
+  question,
+  user,
+  allVotes,
+  optionOneAmount,
+  optionTwoAmount,
+  optionOnePercentage,
+  optionTwoPercentage,
+}) => {
   return (
     <Box bg="secondary" p="2rem 3rem" boxShadow="lg">
       <Flex
@@ -16,17 +24,12 @@ const AnsweredPoll = () => {
         <Box>
           <Text color="primary" fontWeight="200" fontSize="2rem">
             <Text as="span" fontWeight="600">
-              Kate
-            </Text>{" "}
-            James asks:
+              {user?.name} asks:
+            </Text>
           </Text>
         </Box>
         <Box>
-          <Avatar
-            name="kate"
-            src="https://bit.ly/tioluwani-kolawole"
-            size="xl"
-          />
+          <Avatar name={user?.name} src={user?.avatarURL} size="xl" />
         </Box>
       </Flex>
       <Box mt="1rem">
@@ -37,7 +40,7 @@ const AnsweredPoll = () => {
       <Box mt="2rem" border="1px solid #302b63" bgColor="#eee" p="2rem">
         <Box mb="2rem">
           <Text fontSize="2.5rem" fontWeight="600" color="#000">
-            Would you rather find $50 for yourself
+            {question?.optionOne.text}
           </Text>
         </Box>
         <Box mb="2rem" backgroundColor="#eee">
@@ -45,13 +48,13 @@ const AnsweredPoll = () => {
             variant="progress-customize"
             height="3rem"
             size="lg"
-            value={40}
+            value={optionOnePercentage}
             colorScheme="blackAlpha"
           />
         </Box>
         <Flex justifyContent="center">
           <Text fontSize="2rem" color="primary">
-            2 out of 3 votes
+            {`${optionOneAmount} out of ${allVotes} votes`}
           </Text>
         </Flex>
       </Box>
@@ -59,7 +62,7 @@ const AnsweredPoll = () => {
       <Box mt="2rem" border="1px solid #302b63" bgColor="#eee" p="2rem">
         <Box mb="2rem">
           <Text fontSize="2.5rem" fontWeight="600" color="#000">
-            Would you rather find $50 for yourself
+            {question?.optionTwo.text}
           </Text>
         </Box>
         <Box mb="2rem" backgroundColor="#eee">
@@ -67,13 +70,13 @@ const AnsweredPoll = () => {
             variant="progress-customize"
             height="3rem"
             size="lg"
-            value={40}
+            value={optionTwoPercentage}
             colorScheme="blackAlpha"
           />
         </Box>
         <Flex justifyContent="center">
           <Text fontSize="2rem" color="primary">
-            2 out of 3 votes
+            {`${optionTwoAmount} out of ${allVotes} votes`}
           </Text>
         </Flex>
       </Box>

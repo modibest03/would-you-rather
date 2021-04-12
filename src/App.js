@@ -12,23 +12,11 @@ import NewQuestion from "./pages/NewQuestion";
 import Leaderboard from "./pages/Leaderboard";
 import Login from "./components/Login";
 import NotFoundPage from "./components/NotFoundPage";
+import Question from "./components/Question";
 
 function App() {
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.users);
   const authenticated = useSelector((state) => state.user);
-  console.log(users.users);
-  console.log(authenticated);
-
-  useEffect(() => {
-    if (users && authenticated) {
-      for (let [key, value] of Object.entries(users.users)) {
-        if (authenticated === value.id) {
-          console.log(value);
-        }
-      }
-    }
-  }, [users, authenticated]);
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -37,22 +25,32 @@ function App() {
   }, [dispatch]);
 
   return (
-    <Box backgroundColor="tertiary" h="100vh" position="relative">
+    <Box
+      backgroundColor="tertiary"
+      h="100vh"
+      position="relative"
+      // overflow="hidden"
+    >
       <Switch>
         <Route exact path="/">
           <Navbar />
-          <Home />
-          <Profile />
+          {authenticated ? <Home /> : <Redirect to="/login" />}
+          <Profile authenticated={authenticated} />
         </Route>
         <Route exact path="/add">
           <Navbar />
-          <NewQuestion />
-          <Profile />
+          {authenticated ? <NewQuestion /> : <Redirect to="/login" />}
+          <Profile authenticated={authenticated} />
         </Route>
         <Route exact path="/leaderboard">
           <Navbar />
-          <Leaderboard />
-          <Profile />
+          {authenticated ? <Leaderboard /> : <Redirect to="/login" />}
+          <Profile authenticated={authenticated} />
+        </Route>
+        <Route exact path="/question/:question_id">
+          <Navbar />
+          {authenticated ? <Question /> : <Redirect to="/login" />}
+          <Profile authenticated={authenticated} />
         </Route>
         <Route exact path="/login">
           <Navbar />

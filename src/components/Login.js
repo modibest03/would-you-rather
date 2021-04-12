@@ -1,5 +1,4 @@
-import { Avatar } from "@chakra-ui/avatar";
-import { Box, Flex, Heading, Link, Text } from "@chakra-ui/layout";
+import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 import React from "react";
 import AddForm from "./AddForm";
 

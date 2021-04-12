@@ -2,6 +2,7 @@ import {
   FETCH_QUESTIONS_REQUEST,
   FETCH_QUESTIONS_SUCCESS,
   FETCH_QUESTIONS_FAILURE,
+  SAVE_QUESTION_ANSWER_QUESTION,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -23,6 +24,22 @@ const questionsReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         questions: action.questions,
+      };
+
+    case SAVE_QUESTION_ANSWER_QUESTION:
+      const { authedUser, qid, answer } = action;
+      return {
+        ...state,
+        questions: {
+          ...state.questions,
+          [qid]: {
+            ...state.questions[qid],
+            [answer]: {
+              ...state.questions[qid][answer],
+              votes: state.questions[qid][answer].votes.concat([authedUser]),
+            },
+          },
+        },
       };
 
     case FETCH_QUESTIONS_FAILURE:

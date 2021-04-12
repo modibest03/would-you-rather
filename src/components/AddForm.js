@@ -4,9 +4,51 @@ import { Input } from "@chakra-ui/input";
 import { Box, Flex } from "@chakra-ui/layout";
 import { Select } from "@chakra-ui/select";
 import { Field, Form, Formik } from "formik";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { authedUser } from "../redux/actions/authedUserAction";
 import * as Yup from "yup";
 
 const AddForm = ({ signin, option }) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const users = useSelector((state) => state.users);
+  const [usersId, setUsersId] = useState([]);
+  const [authenticated, setAuthenticated] = useState("");
+
+  useEffect(() => {
+    if (users) {
+      const usersId = [];
+      for (let [key, value] of Object.entries(users.users)) {
+        usersId.push(value.id);
+      }
+      setUsersId(usersId);
+      setAuthenticated(usersId[0]);
+    }
+  }, [users]);
+
+  const handleClick = () => {
+    for (let [key, value] of Object.entries(users.users)) {
+      if (authenticated === value.id) {
+        const { id, name, avatarURL, answers, questions } = value;
+        const info = {
+          id,
+          name,
+          avatarURL,
+          answers,
+          questions,
+        };
+        dispatch(authedUser(info));
+        history.push("/");
+        return;
+      }
+    }
+  };
+
+  // console.log(usersId);
+  // console.log(authenticated);
+
   return (
     <Box mt="2rem">
       {option && (
@@ -90,14 +132,23 @@ const AddForm = ({ signin, option }) => {
       {signin && (
         <Box mt="8rem">
           <Box>
-            <Select height="7rem" fontSize="2rem" focusBorderColor="primary">
-              <option value="option1">option1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
+            <Select
+              value={authenticated}
+              height="7rem"
+              fontSize="2rem"
+              focusBorderColor="primary"
+              onChange={(e) => setAuthenticated(e.target.value)}
+            >
+              {usersId.map((userId) => (
+                <option key={userId} value={userId}>
+                  {userId}
+                </option>
+              ))}
             </Select>
           </Box>
           <Flex>
             <Button
+              onClick={handleClick}
               flexGrow="1"
               padding="4rem"
               fontSize="2.5rem"

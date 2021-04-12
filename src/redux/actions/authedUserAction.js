@@ -1,6 +1,6 @@
 import { FETCH_AUTHED_USER, CLEAR_USER } from "./actionTypes";
 
-const AUTHED_ID = "sarahedo";
+const AUTHED_ID = null;
 
 export const authedUser = (id) => {
   return {

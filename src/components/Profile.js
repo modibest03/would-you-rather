@@ -1,7 +1,7 @@
 import { Box, Avatar, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 
-const Profile = () => {
+const Profile = ({ authenticated }) => {
   return (
     <Box
       bgColor="secondary"
@@ -16,11 +16,7 @@ const Profile = () => {
         borderBottom="1px solid #302b63"
         justifyContent="center"
       >
-        <Avatar
-          name="kate"
-          src="https://bit.ly/tioluwani-kolawole"
-          size="2xl"
-        />
+        <Avatar name="kate" src={authenticated?.avatarURL} size="2xl" />
       </Flex>
       <Flex mt="1rem" justifyContent="center">
         <Text>Welcome back</Text>
@@ -28,9 +24,8 @@ const Profile = () => {
       <Flex color="primary" fontSize="2rem" mt="1rem" justifyContent="center">
         <Text>
           <Text as="span" fontWeight="600">
-            Linda
-          </Text>{" "}
-          James
+            {authenticated?.name}
+          </Text>
         </Text>
       </Flex>
     </Box>

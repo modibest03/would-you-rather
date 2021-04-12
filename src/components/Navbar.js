@@ -3,8 +3,16 @@ import { NavLink as RaechLink } from "react-router-dom";
 import React from "react";
 import { Icon } from "@chakra-ui/react";
 import { FiLogOut } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import { clearUser } from "../redux/actions/authedUserAction";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(clearUser());
+  };
+
   return (
     <Flex
       boxShadow="lg"
@@ -33,7 +41,7 @@ const Navbar = () => {
             height="100%"
             textAlign="center"
             alignItems="center"
-            transition="all 2s"
+            transition="all .2s"
             _focus={{
               border: "none",
             }}
@@ -46,7 +54,7 @@ const Navbar = () => {
               fontWeight: "bold",
               color: "#302b63",
               marginTop: "4px",
-              transition: "all 2s",
+              transition: "all .2s",
             }}
             as={RaechLink}
             to="/"
@@ -66,7 +74,7 @@ const Navbar = () => {
             height="100%"
             textAlign="center"
             alignItems="center"
-            transition="all 2s"
+            transition="all .2s"
             _focus={{
               border: "none",
             }}
@@ -78,7 +86,7 @@ const Navbar = () => {
               borderBottom: "4px solid #302b63",
               fontWeight: "bold",
               color: "#302b63",
-              transition: "all 2s",
+              transition: "all .2s",
             }}
             to="/add"
             as={RaechLink}
@@ -98,7 +106,7 @@ const Navbar = () => {
             height="100%"
             textAlign="center"
             alignItems="center"
-            transition="all 2s"
+            transition="all .2s"
             _focus={{
               border: "none",
             }}
@@ -110,7 +118,7 @@ const Navbar = () => {
               borderBottom: "4px solid #302b63",
               fontWeight: "bold",
               color: "#302b63",
-              transition: "all 2s",
+              transition: "all .2s",
             }}
             to="/leaderboard"
             as={RaechLink}
@@ -119,7 +127,15 @@ const Navbar = () => {
           </Link>
         </ListItem>
       </UnorderedList>
-      <Box position="absolute" right="5%" top="28%">
+      <Box
+        position="absolute"
+        right="5%"
+        top="28%"
+        onClick={handleClick}
+        _hover={{
+          cursor: "pointer",
+        }}
+      >
         <Icon as={FiLogOut} fontSize="4rem" color="red" />
       </Box>
     </Flex>
